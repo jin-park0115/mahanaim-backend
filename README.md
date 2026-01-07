@@ -72,6 +72,7 @@ LINEUP {
  PK bigint match_id
  FK json formation_data "좌표 및 선수 배치 정보" 
 }
+```
 ---
 
 ---
@@ -83,7 +84,6 @@ MatchAttendance	| user_id, match_id, status |	참여 신청
 MatchStat	| user_id, match_id, goals, assists, is_mom |	경기 기록
 Lineup  |	match_id, formation_data(JSON) |	라인업 배치
 MomVote	| match_id, voter_id, candidate_id |	MOM 투표
-```
 
 ---
 
