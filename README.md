@@ -15,7 +15,7 @@ DB 기본 구성,
 
 ---
 ### 🗄️DB 설계 (ERD)
-```mermaid
+```
 ERDiagram 
 USER ||--o{ MATCH_ATTENDANCE : "참여신청"
 USER ||--o{ MATCH_STAT : "기록됨" 
