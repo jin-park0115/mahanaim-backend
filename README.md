@@ -15,7 +15,8 @@ DB 기본 구성,
 
 ---
 ### 🗄️DB 설계 (ERD)
-erDiagram 
+```mermaid
+ERDiagram 
 USER ||--o{ MATCH_ATTENDANCE : "참여신청"
 USER ||--o{ MATCH_STAT : "기록됨" 
 USER ||--o{ MOM_VOTE : "투표함(Voter)"
@@ -82,6 +83,7 @@ MatchAttendance	| user_id, match_id, status |	참여 신청
 MatchStat	| user_id, match_id, goals, assists, is_mom |	경기 기록
 Lineup  |	match_id, formation_data(JSON) |	라인업 배치
 MomVote	| match_id, voter_id, candidate_id |	MOM 투표
+```
 
 ---
 
