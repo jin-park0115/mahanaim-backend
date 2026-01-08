@@ -1,5 +1,6 @@
 package com.mahanaim.mahanaim_backend.service;
 
+import com.mahanaim.mahanaim_backend.dto.VoteResultDto;
 import com.mahanaim.mahanaim_backend.entity.Match;
 import com.mahanaim.mahanaim_backend.entity.MomVote;
 import com.mahanaim.mahanaim_backend.entity.User;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -46,5 +48,8 @@ public class MomVoteService {
                 .candidate(candidate)
                 .build();
         return momVoteRepository.save(momvote).getVoteId();
+    }
+    public List<VoteResultDto> getVoteResults(Long matchId){
+        return momVoteRepository.findVoteResultByMatchId(matchId);
     }
 }

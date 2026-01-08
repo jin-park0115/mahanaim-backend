@@ -1,8 +1,8 @@
 spring:
   datasource:
     url: jdbc:mysql://localhost:3306/mahanaim_db?serverTimezone=Asia/Seoul&useUnicode=true&characterEncoding=utf8
-    username: ${DB_USENAME}
-    password: ${DB_PASSWORD}
+    username: root
+    password: wls6819@!~
     driver-class-name: com.mysql.cj.jdbc.Driver
 
   jpa:

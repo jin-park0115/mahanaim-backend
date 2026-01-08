@@ -9,7 +9,8 @@ import lombok.Getter;
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long userID;
+    @Column(name = "user_id")
+    private Long userId;
 
     private String email;
     private String name;
@@ -19,7 +20,4 @@ public class User {
     @Enumerated(EnumType.STRING)
     private Role role;
 
-    public Long getUserId() {
-        return this.userID;
-    }
 }
