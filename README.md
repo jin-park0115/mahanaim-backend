@@ -125,6 +125,7 @@ MomVote	| match_id, voter_id, candidate_id |	MOM 투표
   
   핵심: Controller는 DTO만 다루고, Service에서만 Entity/DTO변환. 이렇게 하면 계층 분리가 깔끔해진다.
 
+  ** 다음 목표: Service로직 나머지 다 완성, RESTAPI 생성 
   ---
 
   
