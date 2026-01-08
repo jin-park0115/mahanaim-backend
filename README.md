@@ -106,3 +106,27 @@ MomVote	| match_id, voter_id, candidate_id |	MOM 투표
 
 * *다음 목표 Repository 생성, RESTAPI 개발, Spring Security
 --- 
+
+개발일지 2026년01월08일
+* 오늘 한 개발: Repository 생성, MoMvote(Service)로직 생성, DTO생성, PostManTest 200OK
+* 공부 포인트
+  Repository: - 특정 엔티티 타입용으로 "데이터 저장/조회/수정/삭제" 메서드를 모아둔 interface이다. CRUD가 가능하도록 해준다.
+  - 애플리케이션 코드(Service 등)에서 직접 SQL을 쓰지 않고, Repository 메서드를 호출해서 DB를 다루게 한다.
+ 
+  
+  findBy...: Repository interface에 findBy... 같은 이름을 쓰면 JPA가 자바 객체의 필드 구조를 분석해서 자동으로 SQL을 만든다.
+  이걸 쿼리메서드라고 부른다.
+  
+  DTO: Data Transfer Object, 계층 간(controller <=> service <=> Respository) 데이터 전달 전용 객체다.
+  엔티티 처럼 DB구조를 반영하지 않고, 클라이언트와 서버 간 필요한 데이터만 담아서 직렬화(JSON)하기 쉽게 설계한다.
+  역할 및 특징: 순수 데이터 컨테이너 getter/setter만 있고 비즈니스 로직은 없음
+  DB 테이블 구조 노출 방지
+  요청/응답 분리
+  
+  핵심: Controller는 DTO만 다루고, Service에서만 Entity/DTO변환. 이렇게 하면 계층 분리가 깔끔해진다.
+
+  ---
+
+  
+  
+  
