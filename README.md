@@ -125,18 +125,17 @@ MomVote	| match_id, voter_id, candidate_id |	MOM 투표
   
   핵심: Controller는 DTO만 다루고, Service에서만 Entity/DTO변환. 이렇게 하면 계층 분리가 깔끔해진다.
 
-  ** 다음 목표: Service로직 나머지 다 완성, RESTAPI 생성 
-  ---
+  ** 다음 목표: Service로직 나머지 다 완성, RESTAPI 생성
+---
+개발일지 2026년01월09일
+* 오늘 한 개발: User(Login, join)로직, MatchAttendance(참가, 불참, 미정)로직, Swagger 테스트, BCrypt Encode(비밀번호 암호화)
+* 공부 포인트:
+  계속 Dto, Repository, Controller, Service 부분 이해하며 공부하기, Security 쪽 이해하기
 
-  개발일지 2026년01월09일
-  * 오늘 한 개발: User(Login, join)로직, MatchAttendance(참가, 불참, 미정)로직, Swagger 테스트, BCrypt Encode(비밀번호 암호화)
-  * 공부 포인트
-    계속 Dto, Repository, Controller, Service 부분 이해하며 공부하기, Security 쪽 이해하기
+  핵심: 이제 웬만한 기능은 만들었고 추후 추가를 해야할거 같다,
+  만든 기능들은 로그인, 회원가입, 일정등록(아직 Role권한 설정 안함), 일정생성, 일정조회, 유저정보 조회, MoM투표(24시간, 중복, 본인 금지), 경기 참가(참, 미, 불)
 
-    핵심: 이제 웬만한 기능은 만들었고 추후 추가를 해야할거 같다,
-    만든 기능들은 로그인, 회원가입, 일정등록(아직 Role권한 설정 안함), 일정생성, 일정조회, 유저정보 조회, MoM투표(24시간, 중복, 본인 금지), 경기 참가(참, 미, 불)
-
-  향후 추가 할 기능: 일정생성은 Role=admin만 가능하도록, 소셜로그인, 프론트엔드 연동, 현재는 Session으로 보안을 하지만 JWT로 변경등
+향후 추가 할 기능: 일정생성은 Role=admin만 가능하도록, 소셜로그인, 프론트엔드 연동, 현재는 Session으로 보안을 하지만 JWT로 변경등
   
 
   
