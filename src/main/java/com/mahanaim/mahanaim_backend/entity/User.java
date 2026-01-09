@@ -16,9 +16,13 @@ public class User {
     private Long userId;
 
     private String email;
+    private String password;
     private String name;
     private Integer age;
     private String position;
+
+    // 소셜 로그인 여부를 체크하기 위한 필드
+    private String provider;
 
     @Enumerated(EnumType.STRING)
     private Role role;
