@@ -18,7 +18,7 @@ public class UserService {
     private final BCryptPasswordEncoder passwordEncoder;
 
     @Transactional
-    public Long join(UserRequestDto dto){
+    public Long signup(UserRequestDto dto){
         userRepository.findByEmail(dto.getEmail()).ifPresent(u -> {
             throw new IllegalArgumentException("이미 존재하는 이메일입니다.");
         });
@@ -29,6 +29,8 @@ public class UserService {
                 .name(dto.getName())
                 .age(dto.getAge())
                 .position(dto.getPosition())
+                .height(dto.getHeight())
+                .phoneNumber(dto.getPhoneNumber())
                 .role(Role.USER)
                 .build();
         return userRepository.save(user).getUserId();

@@ -4,6 +4,7 @@ import com.mahanaim.mahanaim_backend.dto.MatchRequestDto;
 import com.mahanaim.mahanaim_backend.entity.Match;
 import com.mahanaim.mahanaim_backend.repository.MatchRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,6 +18,7 @@ public class MatchService {
     private final MatchRepository matchRepository;
 
     @Transactional
+    @PreAuthorize("hasRole('ADMIN')")
     public Long createMatch(MatchRequestDto dto){
         if (dto.getMatchDate().isBefore(LocalDateTime.now())){
             throw new IllegalArgumentException("과거 날짜로는 경기를 생성할 수 없습니다.");

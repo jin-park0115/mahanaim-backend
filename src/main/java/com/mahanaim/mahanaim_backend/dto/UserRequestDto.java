@@ -12,6 +12,8 @@ public class UserRequestDto {
     private String name;
     private Integer age;
     private String position;
+    private Double height;
+    private String phoneNumber;
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
 }
