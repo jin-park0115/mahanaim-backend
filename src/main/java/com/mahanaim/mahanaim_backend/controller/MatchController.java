@@ -9,6 +9,8 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 
 @RestController
 @RequestMapping("/api/matches")
@@ -27,8 +29,21 @@ public class MatchController {
         }
     }
 
+    @PatchMapping("/{matchId}/score")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<String> updateScore(
+            @PathVariable Long matchId,
+            @RequestBody Map<String, Integer> score) {
+        matchService.updateMatchScore(matchId, score.get("homeScore"), score.get("awayScore"));
+        return ResponseEntity.ok("점수가 업데이트되었습니다.");
+    }
+
     @GetMapping
     public ResponseEntity<List<Match>> list() {
         return ResponseEntity.ok(matchService.getAllMatches());
+    }
+    @GetMapping("/main")
+    public ResponseEntity<Map<String, Object>> getMainMatches() {
+        return ResponseEntity.ok(matchService.getMainPageMatches());
     }
 }

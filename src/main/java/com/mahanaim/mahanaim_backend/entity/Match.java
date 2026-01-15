@@ -21,18 +21,26 @@ public class Match {
     @Column(nullable = false)
     private LocalDateTime matchDate;
     @Column(nullable = false)
-    private String Location;
+    private String location;
 
     private String matchType;
 
     @Column(columnDefinition = "TEXT")
     private String description;
 
+    private Integer homeScore;
+    private Integer awayScore;
+
     @Builder
     public Match(LocalDateTime matchDate, String location, String matchType, String description){
         this.matchDate = matchDate;
-        this.Location = location;
+        this.location = location;
         this.matchType = matchType;
         this.description = description;
+    }
+
+    public void updateScore(Integer homeScore, Integer awayScore){
+        this.homeScore = homeScore;
+        this.awayScore = awayScore;
     }
 }
