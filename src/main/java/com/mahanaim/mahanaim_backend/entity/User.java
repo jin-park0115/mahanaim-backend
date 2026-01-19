@@ -29,4 +29,10 @@ public class User {
     @Enumerated(EnumType.STRING)
     private Role role;
 
+    public void updateProfile(Integer age, Double height, String position, String phoneNumber) {
+        if (age != null) this.age = age;
+        if (height != null) this.height = height;
+        if (position != null) this.position = position;
+        if (phoneNumber != null) this.phoneNumber = phoneNumber;
+    }
 }

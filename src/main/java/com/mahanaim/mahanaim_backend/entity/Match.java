@@ -1,5 +1,6 @@
 package com.mahanaim.mahanaim_backend.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -7,6 +8,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -21,6 +24,8 @@ public class Match {
     @Column(nullable = false)
     private LocalDateTime matchDate;
     @Column(nullable = false)
+    private LocalDateTime endTime;
+    @Column(nullable = false)
     private String location;
 
     private String matchType;
@@ -31,9 +36,14 @@ public class Match {
     private Integer homeScore;
     private Integer awayScore;
 
+    @JsonIgnoreProperties("match")
+    @OneToMany(mappedBy = "match", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<MatchAttendance> attendances = new ArrayList<>();
+
     @Builder
-    public Match(LocalDateTime matchDate, String location, String matchType, String description){
+    public Match(LocalDateTime matchDate, LocalDateTime endTime,String location, String matchType, String description){
         this.matchDate = matchDate;
+        this.endTime = endTime;
         this.location = location;
         this.matchType = matchType;
         this.description = description;

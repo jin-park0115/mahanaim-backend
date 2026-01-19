@@ -71,6 +71,11 @@ public class UserController {
         User user = userDetails.getUser();
         return ResponseEntity.ok(new UserResponseDto(user));
     }
-
+    @PatchMapping("/me")
+    public ResponseEntity<?> updateMyInfo(@AuthenticationPrincipal UserDetailsImpl userDetails, @RequestBody UserRequestDto dto){
+        Long userId = userDetails.getUser().getUserId();
+        userService.updateUser(userId, dto);
+        return ResponseEntity.ok("정보가 성공적으로 수정되었습니다.");
+    }
 
 }

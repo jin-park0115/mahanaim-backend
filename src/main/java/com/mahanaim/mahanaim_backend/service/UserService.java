@@ -49,4 +49,10 @@ public class UserService {
         return userRepository.findById(userId)
                 .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 사용자 입니다."));
     }
+
+    @Transactional
+    public void updateUser(Long userId, UserRequestDto dto){
+        User user = userRepository.findById(userId).orElseThrow();
+        user.updateProfile(dto.getAge(), dto.getHeight(), dto.getPosition(), dto.getPhoneNumber());
+    }
 }
