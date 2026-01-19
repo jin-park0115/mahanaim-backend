@@ -10,6 +10,8 @@ import com.mahanaim.mahanaim_backend.security.JwtUtil;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
@@ -33,27 +35,30 @@ public class UserController {
 
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody LoginRequestDto dto, HttpServletResponse response){
-        System.out.println("들어온 이메일: " + dto.getEmail());
         User user = userService.login(dto);
         String token = jwtUtil.createToken(user.getUserId(), user.getEmail(), user.getRole().toString());
 
-        Cookie cookie = new Cookie("accessToken", token);
-        cookie.setHttpOnly(true);
-        cookie.setSecure(false); // 운영환경(HTTPS)에서는 true로 설정
-        cookie.setPath("/");
-        cookie.setMaxAge(3600); // 1시간
-
-        response.addCookie(cookie);
+        ResponseCookie cookie = ResponseCookie.from("accessToken", token)
+                .path("/")
+                .httpOnly(true)
+                .secure(true)
+                .sameSite("none")
+                .maxAge(3600)
+                .build();
+        response.addHeader(HttpHeaders.SET_COOKIE, cookie.toString());
         return ResponseEntity.ok(user.getName() + "님 환영합니다.");
     }
 
     @PostMapping("/logout")
     public ResponseEntity<String> logout(HttpServletResponse response){
-        Cookie cookie = new Cookie("accessToken", null);
-        cookie.setPath("/");
-        cookie.setMaxAge(0);
-        response.addCookie(cookie);
-
+        ResponseCookie cookie = ResponseCookie.from("accessToken", "")
+                .path("/")
+                .httpOnly(true)
+                .secure(true)
+                .sameSite("none")
+                .maxAge(0)
+                .build();
+        response.addHeader(HttpHeaders.SET_COOKIE, cookie.toString());
         return ResponseEntity.ok("로그아웃 되었습니다.");
     }
 
