@@ -1,5 +1,5 @@
 # 1. 빌드 스테이지
-FROM openjdk:17-jdk-slim AS build
+FROM amazoncorretto:17 AS build
 COPY . /home/app
 WORKDIR /home/app
 # gradlew에 실행 권한 부여 및 빌드
