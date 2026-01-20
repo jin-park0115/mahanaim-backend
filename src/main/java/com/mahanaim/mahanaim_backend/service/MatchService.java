@@ -29,6 +29,7 @@ public class MatchService {
         Match match= Match.builder()
                 .location(dto.getLocation())
                 .matchDate(dto.getMatchDate())
+                .endTime(dto.getEndTime())
                 .description(dto.getDescription())
                 .matchType(dto.getMatchType())
                 .build();

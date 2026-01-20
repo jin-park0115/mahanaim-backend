@@ -9,6 +9,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class MatchRequestDto {
     private LocalDateTime matchDate;
+    private LocalDateTime endTime;
     private String matchType;
     private String description;
     private String location;
