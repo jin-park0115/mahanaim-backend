@@ -28,7 +28,7 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
 
         // 1. 쿠키에서 토큰 꺼내기
-        String token = getTokenFromCookie(request);
+        String token = getTokenFromRequest(request);
 
         if (token != null) {
             // 2. 토큰 검증
