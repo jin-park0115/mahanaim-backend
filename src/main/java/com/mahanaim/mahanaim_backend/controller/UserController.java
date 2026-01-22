@@ -53,9 +53,9 @@ public class UserController {
 
             Map<String, Object> body = new HashMap<>();
             body.put("token", token);
-            body.put("name", user.getName());
+            body.put("message", user.getName() + "님 환영합니다.");
 
-            return ResponseEntity.ok(user.getName() + "님 환영합니다.");
+            return ResponseEntity.ok(body);
         } catch (IllegalArgumentException e){
             return ResponseEntity.status(401).body(e.getMessage());
         } catch (Exception e){
