@@ -53,6 +53,22 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
         filterChain.doFilter(request, response);
     }
 
+    private String getTokenFromRequest(HttpServletRequest request) {
+        // 1순위: 쿠키에서 찾기
+        String token = getTokenFromCookie(request);
+        if (token != null && !token.isEmpty()) {
+            return token;
+        }
+
+        // 2순위: Authorization 헤더에서 찾기 (Bearer 방식)
+        String bearerToken = request.getHeader("Authorization");
+        if (bearerToken != null && bearerToken.startsWith("Bearer ")) {
+            return bearerToken.substring(7); // "Bearer " 이후의 토큰 값만 추출
+        }
+
+        return null;
+    }
+
     // 인증 객체 생성
     public void setAuthentication(String username) {
         SecurityContext context = SecurityContextHolder.createEmptyContext();
@@ -73,7 +89,7 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
         Cookie[] cookies = request.getCookies();
         if (cookies != null) {
             for (Cookie cookie : cookies) {
-                if (cookie.getName().equals("accessToken")) {
+                if ("accessToken".equals(cookie.getName())) {
                     return cookie.getValue();
                 }
             }

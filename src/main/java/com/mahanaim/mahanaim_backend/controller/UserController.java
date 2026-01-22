@@ -16,6 +16,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @RestController
 @RequestMapping("/api/users")
 @RequiredArgsConstructor
@@ -35,18 +38,29 @@ public class UserController {
 
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody LoginRequestDto dto, HttpServletResponse response){
-        User user = userService.login(dto);
-        String token = jwtUtil.createToken(user.getUserId(), user.getEmail(), user.getRole().toString());
+        try {
+            User user = userService.login(dto);
+            String token = jwtUtil.createToken(user.getUserId(), user.getEmail(), user.getRole().toString());
 
-        ResponseCookie cookie = ResponseCookie.from("accessToken", token)
-                .path("/")
-                .httpOnly(true)
-                .secure(true)
-                .sameSite("none")
-                .maxAge(3600)
-                .build();
-        response.addHeader(HttpHeaders.SET_COOKIE, cookie.toString());
-        return ResponseEntity.ok(user.getName() + "님 환영합니다.");
+            ResponseCookie cookie = ResponseCookie.from("accessToken", token)
+                    .path("/")
+                    .httpOnly(true)
+                    .secure(true)
+                    .sameSite("none")
+                    .maxAge(3600)
+                    .build();
+            response.addHeader(HttpHeaders.SET_COOKIE, cookie.toString());
+
+            Map<String, Object> body = new HashMap<>();
+            body.put("token", token);
+            body.put("name", user.getName());
+
+            return ResponseEntity.ok(user.getName() + "님 환영합니다.");
+        } catch (IllegalArgumentException e){
+            return ResponseEntity.status(401).body(e.getMessage());
+        } catch (Exception e){
+            return ResponseEntity.status(500).body("로그인 중 서버 오류가 발생했습니다.");
+        }
     }
 
     @PostMapping("/logout")
